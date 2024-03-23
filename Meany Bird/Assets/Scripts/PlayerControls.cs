@@ -8,7 +8,7 @@ public class PlayerControls : MonoBehaviour
     [Header("Game Controller Objects for controlling the game")]
     public GameController gameController;
     [Header("Default Velocity")]
-    public float velocity = 1;
+    public float velocity = 5;
     //Physics for the bird
     private Rigidbody2D rb;
     //hieght of the bird object on the y axis
@@ -34,6 +34,14 @@ public class PlayerControls : MonoBehaviour
             //The bird will float up on the Y axis
             //and float back down on Y axis
             rb.velocity = Vector2.up * velocity;
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "HighSpike" || collision.gameObject.tag == "LowSpike" || collision.gameObject.tag == "Ground")
+        {
+            //Game Over function is called from the game manager
+            GameObject.Find("GameController").GetComponent<GameController>().GameOver();
         }
     }
 }
